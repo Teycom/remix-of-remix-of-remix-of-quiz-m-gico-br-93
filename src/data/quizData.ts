@@ -468,21 +468,46 @@ export const quizSteps: QuizStep[] = [
     subtitle: 'Vamos personalizar o desafio para o seu amigo',
     progressSegment: 3,
   },
-  // BLOCK 31: Resumo final / Análise
+  // BLOCK 31: Tempo disponível
   {
-    id: 'summary-info',
-    type: 'info-screen',
-    title: 'Perfeito! Analisamos suas respostas',
-    subtitle: 'Com base no perfil do seu cão, criamos um plano de 21 dias personalizado para vocês.',
-    buttonText: 'Ver meu plano',
-    image: images.behavioralProblems,
+    id: 'time-available',
+    type: 'time-available',
+    title: 'Quanto tempo você está disposto a gastar?',
     progressSegment: 3,
   },
-  // BLOCK 32: Loading
+  // BLOCK 32: Gráfico de progresso
   {
-    id: 'loading',
-    type: 'loading-screen',
-    title: 'Preparando seu plano personalizado...',
+    id: 'progress-chart',
+    type: 'progress-chart',
+    title: 'Este desafio foi desenvolvido para apoiar sua jornada',
+    progressSegment: 3,
+  },
+  // BLOCK 33: Loading com reviews
+  {
+    id: 'loading-reviews',
+    type: 'loading-reviews',
+    title: 'Criando seu plano...',
+    progressSegment: 3,
+  },
+  // BLOCK 34: Nível de obediência
+  {
+    id: 'obedience-level',
+    type: 'obedience-level',
+    title: 'Seu cão já pode iniciar!',
+    progressSegment: 3,
+  },
+  // BLOCK 35: Progresso semanal
+  {
+    id: 'weekly-progress',
+    type: 'weekly-progress',
+    title: 'Nível de obediência',
+    progressSegment: 3,
+  },
+  // BLOCK 36: Captura de email
+  {
+    id: 'email-capture',
+    type: 'email-capture',
+    title: 'Insira seu email',
     progressSegment: 3,
   },
 ];

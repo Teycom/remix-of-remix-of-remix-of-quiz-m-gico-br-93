@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { QuizHeader } from './QuizHeader';
 import { quizSteps } from '@/data/quizData';
 import { QuizState, QuizAnswer } from '@/types/quiz';
@@ -10,9 +11,15 @@ import { InfoScreenStep } from './steps/InfoScreenStep';
 import { MultiChoiceStep } from './steps/MultiChoiceStep';
 import { SingleChoiceStep } from './steps/SingleChoiceStep';
 import { RatingScaleStep } from './steps/RatingScaleStep';
-import { LoadingScreenStep } from './steps/LoadingScreenStep';
+import { TimeAvailableStep } from './steps/TimeAvailableStep';
+import { ProgressChartStep } from './steps/ProgressChartStep';
+import { LoadingWithReviewsStep } from './steps/LoadingWithReviewsStep';
+import { ObedienceLevelStep } from './steps/ObedienceLevelStep';
+import { WeeklyProgressStep } from './steps/WeeklyProgressStep';
+import { EmailCaptureStep } from './steps/EmailCaptureStep';
 
 export const QuizFlow = () => {
+  const navigate = useNavigate();
   const [state, setState] = useState<QuizState>({
     currentStep: 0,
     answers: [],
@@ -97,6 +104,11 @@ export const QuizFlow = () => {
     goToNextStep();
   };
 
+  const handleEmailSubmit = (email: string) => {
+    saveAnswer('email', email);
+    navigate('/oferta', { state: { dogName: state.dogName, dogBreed: state.dogBreed, answers: state.answers } });
+  };
+
   const getAgeLabel = () => {
     switch (state.dogAge) {
       case 'puppy': return 'filhote';
@@ -119,20 +131,10 @@ export const QuizFlow = () => {
         return <AgeSelectionStep onSelect={handleAgeSelect} />;
       
       case 'gender-selection':
-        return (
-          <GenderSelectionStep
-            onSelect={handleGenderSelect}
-            dogAge={state.dogAge}
-          />
-        );
+        return <GenderSelectionStep onSelect={handleGenderSelect} dogAge={state.dogAge} />;
       
       case 'breed-selection':
-        return (
-          <BreedSelectionStep
-            onSelect={handleBreedSelect}
-            dogAge={state.dogAge}
-          />
-        );
+        return <BreedSelectionStep onSelect={handleBreedSelect} dogAge={state.dogAge} />;
       
       case 'name-input':
         return <NameInputStep onSubmit={handleNameSubmit} />;
@@ -217,22 +219,48 @@ export const QuizFlow = () => {
           />
         );
       
-      case 'loading-screen':
-        return <LoadingScreenStep />;
+      case 'time-available':
+        return <TimeAvailableStep dogName={state.dogName} onSelect={(time) => { saveAnswer('time-available', time); goToNextStep(); }} />;
+      
+      case 'progress-chart':
+        return <ProgressChartStep dogName={state.dogName} onContinue={goToNextStep} />;
+      
+      case 'loading-reviews':
+        return (
+          <LoadingWithReviewsStep
+            dogName={state.dogName}
+            dogAge={state.dogAge}
+            onComplete={goToNextStep}
+            onModalAnswer={(qId, answer) => saveAnswer(qId, answer)}
+          />
+        );
+      
+      case 'obedience-level':
+        return <ObedienceLevelStep dogName={state.dogName} dogBreed={state.dogBreed} onContinue={goToNextStep} />;
+      
+      case 'weekly-progress':
+        return <WeeklyProgressStep dogName={state.dogName} onContinue={goToNextStep} />;
+      
+      case 'email-capture':
+        return <EmailCaptureStep dogName={state.dogName} onSubmit={handleEmailSubmit} />;
       
       default:
         return null;
     }
   };
 
+  const showHeader = !['loading-reviews'].includes(currentStepData.type);
+
   return (
     <div className="quiz-container">
-      <QuizHeader
-        showBack={state.currentStep > 0 && currentStepData.type !== 'loading-screen'}
-        onBack={goToPrevStep}
-        progress={progressInSegment}
-        segment={currentStepData.progressSegment || 1}
-      />
+      {showHeader && (
+        <QuizHeader
+          showBack={state.currentStep > 0}
+          onBack={goToPrevStep}
+          progress={progressInSegment}
+          segment={currentStepData.progressSegment || 1}
+        />
+      )}
       
       {renderStep()}
     </div>
