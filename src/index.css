@@ -1,0 +1,213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap');
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 98%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Coral/Salmon primary - like PawChamp */
+    --primary: 10 85% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Light gray secondary for cards */
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 222 47% 11%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 8% 46%;
+
+    /* Accent blue for links */
+    --accent: 201 96% 32%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Sky blue for info boxes */
+    --info: 199 89% 92%;
+    --info-foreground: 201 96% 32%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 10 85% 60%;
+
+    --radius: 0.75rem;
+
+    /* Progress bar coral */
+    --progress: 10 85% 60%;
+    --progress-bg: 220 14% 93%;
+
+    /* Quiz specific */
+    --quiz-option-bg: 220 14% 96%;
+    --quiz-option-hover: 220 14% 93%;
+    --quiz-option-selected: 10 85% 95%;
+    --quiz-option-selected-border: 10 85% 60%;
+
+    /* Sidebar (keeping for compatibility) */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222 47% 5%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 10 85% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 201 96% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --info: 201 50% 20%;
+    --info-foreground: 199 89% 70%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 10 85% 60%;
+
+    --progress: 10 85% 60%;
+    --progress-bg: 217 33% 20%;
+
+    --quiz-option-bg: 217 33% 15%;
+    --quiz-option-hover: 217 33% 20%;
+    --quiz-option-selected: 10 50% 15%;
+    --quiz-option-selected-border: 10 85% 60%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'DM Sans', sans-serif;
+  }
+}
+
+@layer components {
+  .quiz-container {
+    @apply min-h-screen flex flex-col;
+  }
+
+  .quiz-content {
+    @apply flex-1 flex flex-col items-center justify-start px-4 py-6 max-w-md mx-auto w-full;
+  }
+
+  .quiz-option {
+    @apply w-full p-4 rounded-xl bg-secondary hover:bg-quiz-option-hover transition-all duration-200 cursor-pointer flex items-center gap-4 border-2 border-transparent;
+  }
+
+  .quiz-option-selected {
+    @apply bg-quiz-option-selected border-primary;
+  }
+
+  .quiz-btn {
+    @apply w-full py-4 rounded-xl font-semibold text-lg transition-all duration-200;
+  }
+
+  .quiz-btn-primary {
+    @apply bg-primary text-primary-foreground hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .quiz-btn-disabled {
+    @apply bg-secondary text-muted-foreground cursor-not-allowed;
+  }
+
+  .info-box {
+    @apply bg-info rounded-xl p-6 relative;
+  }
+
+  .info-box::before {
+    content: '"';
+    @apply absolute top-4 left-4 text-5xl text-accent opacity-60 font-serif leading-none;
+  }
+
+  .fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .slide-in {
+    animation: slideIn 0.3s ease-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-scale {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-scale {
+  animation: pulse-scale 2s ease-in-out infinite;
+}
