@@ -13,7 +13,7 @@ const ageOptions = [
 
 export const AgeSelectionStep = ({ onSelect }: AgeSelectionStepProps) => {
   return (
-    <div className="quiz-content fade-in">
+    <div className="quiz-content fade-in pb-24">
       <h1 className="text-xl md:text-2xl font-bold text-center text-foreground mb-2 uppercase tracking-wide">
         OBTENHA UM DESAFIO DE OBEDIÊNCIA CANINA PERSONALIZADO
       </h1>
@@ -32,7 +32,7 @@ export const AgeSelectionStep = ({ onSelect }: AgeSelectionStepProps) => {
             <img
               src={option.image}
               alt={option.label}
-              className="w-16 h-16 object-cover rounded-lg"
+              className="w-16 h-16 object-contain rounded-lg"
             />
             <div className="text-left">
               <p className="font-semibold text-foreground text-lg">{option.label}</p>
