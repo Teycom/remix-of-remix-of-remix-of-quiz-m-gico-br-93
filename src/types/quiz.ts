@@ -25,7 +25,13 @@ export type StepType =
   | 'rating-scale'
   | 'info-screen'
   | 'info-screen-image'
-  | 'loading-screen';
+  | 'loading-screen'
+  | 'time-available'
+  | 'progress-chart'
+  | 'loading-reviews'
+  | 'obedience-level'
+  | 'weekly-progress'
+  | 'email-capture';
 
 export interface QuizStep {
   id: string;
