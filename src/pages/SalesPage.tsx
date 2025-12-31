@@ -1,17 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Star, Check, ChevronDown, ChevronUp, Target, AlertTriangle, Users } from 'lucide-react';
+import { Star, Check, ChevronDown, ChevronUp, Target, AlertTriangle } from 'lucide-react';
 
 const SalesPage = () => {
   const location = useLocation();
   const quizData = location.state || {};
   const dogName = quizData.dogName || 'Seu cão';
+  const dogBreed = quizData.dogBreed || '';
   
-  const [timeLeft, setTimeLeft] = useState(10 * 60); // 10 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(10 * 60);
   const [showFaq, setShowFaq] = useState<number | null>(null);
-  const [selectedPlan, setSelectedPlan] = useState(1);
 
-  // Countdown timer
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
@@ -24,12 +23,6 @@ const SalesPage = () => {
     const secs = seconds % 60;
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
-
-  const plans = [
-    { weeks: 4, pricePerDay: 0.51, originalPrice: 1.30, total: 15.19 },
-    { weeks: 12, pricePerDay: 0.29, originalPrice: 0.74, total: 24.49, popular: true },
-    { weeks: 24, pricePerDay: 0.21, originalPrice: 0.53, total: 35.99 },
-  ];
 
   const features = [
     'Melhorar a obediência rápido',
@@ -44,7 +37,7 @@ const SalesPage = () => {
   const faqs = [
     {
       question: 'Já tentei outros adestramentos antes. O que faz esse ser diferente?',
-      answer: 'A PawChamp não é um treinamento comum. Oferecemos uma abordagem única e cientificamente embasada para o adestramento canino, focando nos métodos mais eficazes. Dizemos não a enforcadores, punições, gritos e adestramento baseado em dominância.',
+      answer: 'A Conexão Pet não é um treinamento comum. Oferecemos uma abordagem única e cientificamente embasada para o adestramento canino, focando nos métodos mais eficazes. Dizemos não a enforcadores, punições, gritos e adestramento baseado em dominância.',
     },
     {
       question: 'Meu cão não é motivado por comida',
@@ -60,12 +53,17 @@ const SalesPage = () => {
     {
       title: 'Excelentes técnicas de reforço positivo',
       author: 'Dawg Daddy',
-      text: 'Este é um ótimo programa de treinamento que começa desde a base. Eu vi ótimos resultados com meus 2 cães.',
+      text: 'Este é um ótimo programa de treinamento que começa desde a base, o que é fundamental. Ele avança de forma gradual com técnicas de reforço positivo que realmente funcionam. Eu vi ótimos resultados com meus 2 cães.',
     },
     {
-      title: 'A estrutura é perfeita',
-      author: 'Lynette',
-      text: 'A maneira como este curso foi estruturado permite um aprendizado muito mais eficaz.',
+      title: 'A estrutura do adestramento é brilhante',
+      author: 'Claire_Ugalde',
+      text: 'A maneira como o adestramento é detalhado é excelente. Já fiz um treinamento individual na minha casa e achei menos eficaz do que este curso e o recomendo muito.',
+    },
+    {
+      title: 'Excelente curso de adestramento',
+      author: 'Diego Fernandez Jr',
+      text: 'Curso de adestramento excelente, muito detalhado e fácil de entender. O que eu gosto neste curso é que eles enfatizam que o adestramento de um cão exige paciência e compreensão do processo.',
     },
   ];
 
@@ -82,21 +80,62 @@ const SalesPage = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="bg-background py-4 px-4 border-b border-border">
-        <div className="max-w-md mx-auto flex items-center justify-center gap-2">
-          <img 
-            src="https://res.cloudinary.com/dr0cx27xo/image/upload/v1720101060/paw-champ/logo/pawChamp.png" 
-            alt="PawChamp" 
-            className="h-8"
-          />
+      {/* Fixed Header with Timer */}
+      <header className="fixed top-0 left-0 right-0 bg-background/95 backdrop-blur-sm z-50 border-b border-border">
+        <div className="max-w-md mx-auto flex items-center justify-between px-4 py-3">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+              <span className="text-primary-foreground text-lg">🐕</span>
+            </div>
+            <span className="font-bold text-foreground">Conexão Pet</span>
+          </div>
+          
+          <div className="text-center">
+            <p className="text-2xl font-bold text-foreground">{formatTime(timeLeft)}</p>
+            <p className="text-xs text-muted-foreground">Última chance</p>
+          </div>
+          
+          <button
+            onClick={handleBuy}
+            className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold text-sm hover:opacity-90 transition-opacity"
+          >
+            OBTER O MEU PLANO
+          </button>
         </div>
       </header>
 
-      {/* Timer Bar */}
-      <div className="bg-primary text-primary-foreground py-2 text-center text-sm font-medium">
-        Preço reservado por: <span className="font-bold">{formatTime(timeLeft)}</span>
-      </div>
+      {/* Spacer for fixed header */}
+      <div className="h-20" />
+
+      {/* Hero Section */}
+      <section className="py-8 px-4">
+        <div className="max-w-md mx-auto text-center">
+          <h1 className="text-2xl font-bold text-foreground mb-6">
+            O Desafio de obediência personalizado de {dogName} está pronto!
+          </h1>
+          
+          <div className="flex justify-center gap-8 mb-6">
+            <div className="flex items-center gap-2">
+              <Target className="w-6 h-6 text-primary" />
+              <div className="text-left">
+                <p className="text-xs text-muted-foreground">Meta</p>
+                <p className="font-semibold text-foreground text-sm">Melhorar a obediência</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <AlertTriangle className="w-6 h-6 text-destructive" />
+              <div className="text-left">
+                <p className="text-xs text-muted-foreground">Problemas comportamentais</p>
+                <p className="font-semibold text-foreground text-sm">Agressão</p>
+              </div>
+            </div>
+          </div>
+
+          <p className="text-muted-foreground text-sm mb-4">
+            Junte-se a mais de 557.039 pessoas na comunidade Conexão Pet
+          </p>
+        </div>
+      </section>
 
       {/* Hero Comparison */}
       <section className="bg-info py-8 px-4">
@@ -116,12 +155,12 @@ const SalesPage = () => {
             <img 
               src="https://res.cloudinary.com/dr0cx27xo/image/upload/v1689601188/dog-training/img/girl-problem.png" 
               alt="Antes" 
-              className="w-40 h-auto"
+              className="w-40 h-auto object-contain"
             />
             <img 
               src="https://res.cloudinary.com/dr0cx27xo/image/upload/v1689582634/dog-training/img/girl-resolved.png" 
               alt="Depois" 
-              className="w-40 h-auto"
+              className="w-40 h-auto object-contain"
             />
           </div>
 
@@ -153,40 +192,10 @@ const SalesPage = () => {
         </div>
       </section>
 
-      {/* Challenge Ready */}
-      <section className="py-8 px-4">
-        <div className="max-w-md mx-auto text-center">
-          <h1 className="text-2xl font-bold text-foreground mb-6">
-            O Desafio de obediência personalizado de {dogName} está pronto!
-          </h1>
-          
-          <div className="flex justify-center gap-8 mb-6">
-            <div className="flex items-center gap-2">
-              <Target className="w-6 h-6 text-primary" />
-              <div className="text-left">
-                <p className="text-xs text-muted-foreground">Meta</p>
-                <p className="font-semibold text-foreground text-sm">Melhorar a obediência</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <AlertTriangle className="w-6 h-6 text-destructive" />
-              <div className="text-left">
-                <p className="text-xs text-muted-foreground">Problemas comportamentais</p>
-                <p className="font-semibold text-foreground text-sm">Agressão</p>
-              </div>
-            </div>
-          </div>
-
-          <p className="text-muted-foreground text-sm mb-4">
-            Junte-se a mais de 557.039 pessoas na comunidade PawChamp
-          </p>
-        </div>
-      </section>
-
       {/* Discount Banner */}
-      <section className="px-4">
+      <section className="px-4 py-8">
         <div className="max-w-md mx-auto">
-          <div className="bg-primary text-primary-foreground text-center py-2 rounded-t-xl font-bold">
+          <div className="bg-primary text-primary-foreground text-center py-3 rounded-t-xl font-bold">
             60% DESCONTO RESERVADO POR {formatTime(timeLeft)}
           </div>
           <div className="rounded-b-xl overflow-hidden">
@@ -200,7 +209,7 @@ const SalesPage = () => {
       </section>
 
       {/* Social Proof - Recent Users */}
-      <section className="py-8 px-4">
+      <section className="py-4 px-4">
         <div className="max-w-md mx-auto">
           <p className="text-center text-muted-foreground text-sm mb-4">
             Mais de 1812 pessoas aprenderam insights de obediência canina hoje
@@ -217,61 +226,31 @@ const SalesPage = () => {
         </div>
       </section>
 
-      {/* Pricing */}
+      {/* Single Price CTA */}
       <section className="py-8 px-4 bg-secondary">
-        <div className="max-w-md mx-auto">
-          <h2 className="text-xl font-bold text-center mb-2">Escolha a sua opção</h2>
-          <p className="text-center text-green-600 text-sm mb-4">O seu código promocional foi aplicado!</p>
+        <div className="max-w-md mx-auto text-center">
+          <h2 className="text-xl font-bold mb-2">Garanta agora por apenas</h2>
+          <p className="text-green-600 text-sm mb-4">O seu código promocional foi aplicado!</p>
           
-          <div className="text-center mb-6">
+          <div className="mb-6">
             <span className="bg-foreground text-background px-3 py-1 rounded text-sm font-mono">
               {dogName.toLowerCase().replace(' ', '')}_dezde25
             </span>
-            <p className="text-primary font-bold mt-2">{formatTime(timeLeft)}</p>
           </div>
 
-          <div className="space-y-3">
-            {plans.map((plan, index) => (
-              <button
-                key={index}
-                onClick={() => setSelectedPlan(index)}
-                className={`w-full p-4 rounded-xl border-2 transition-all ${
-                  selectedPlan === index
-                    ? 'border-primary bg-primary/5'
-                    : 'border-border bg-background'
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-bold text-foreground">PLANO DE {plan.weeks} SEMANAS</p>
-                    {plan.popular && (
-                      <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded">
-                        MAIS POPULAR
-                      </span>
-                    )}
-                  </div>
-                  <div className="text-right">
-                    <p className="text-muted-foreground line-through text-sm">${plan.originalPrice}</p>
-                    <p className="text-2xl font-bold text-foreground">
-                      $<span className="text-primary">{plan.pricePerDay.toFixed(2).split('.')[0]}</span>
-                      <span className="text-lg">.{plan.pricePerDay.toFixed(2).split('.')[1]}</span>
-                    </p>
-                    <p className="text-xs text-muted-foreground">por dia</p>
-                  </div>
-                </div>
-              </button>
-            ))}
+          <div className="bg-background rounded-2xl p-6 mb-6 border-2 border-primary">
+            <p className="text-muted-foreground line-through text-lg mb-1">De R$ 97,00</p>
+            <p className="text-4xl font-bold text-primary mb-1">
+              R$ 29<span className="text-2xl">,90</span>
+            </p>
+            <p className="text-muted-foreground text-sm">Pagamento único</p>
           </div>
-
-          <p className="text-xs text-muted-foreground text-center mt-4 mb-6">
-            Ao clicar em «Obter o meu plano», você aceita a renovação automática da assinatura.
-          </p>
 
           <button
             onClick={handleBuy}
-            className="w-full py-4 bg-primary text-primary-foreground rounded-xl font-bold text-lg hover:opacity-90 transition-opacity"
+            className="w-full py-5 bg-primary text-primary-foreground rounded-xl font-bold text-xl hover:opacity-90 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg"
           >
-            Obter o meu plano
+            QUERO MEU PLANO AGORA
           </button>
 
           <p className="text-center text-sm text-muted-foreground mt-4 flex items-center justify-center gap-2">
@@ -325,20 +304,18 @@ const SalesPage = () => {
       {/* Testimonials */}
       <section className="py-8 px-4">
         <div className="max-w-md mx-auto">
-          <h2 className="text-xl font-bold text-center mb-6">Os tutores de cães adoram a PawChamp</h2>
+          <h2 className="text-xl font-bold text-center mb-6">Os tutores de cães adoram a Conexão Pet</h2>
           <div className="space-y-4">
             {testimonials.map((t, i) => (
               <div key={i} className="bg-card border border-border p-4 rounded-xl">
-                <div className="flex gap-0.5 mb-2">
-                  {Array.from({ length: 5 }).map((_, j) => (
-                    <div key={j} className="w-5 h-5 bg-green-500 flex items-center justify-center">
-                      <Star className="w-3 h-3 text-white fill-white" />
-                    </div>
-                  ))}
-                </div>
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="font-semibold text-foreground">{t.title}</h4>
                   <span className="text-muted-foreground text-sm">{t.author}</span>
+                </div>
+                <div className="flex gap-0.5 mb-2">
+                  {Array.from({ length: 5 }).map((_, j) => (
+                    <Star key={j} className="w-4 h-4 text-orange-400 fill-orange-400" />
+                  ))}
                 </div>
                 <p className="text-foreground text-sm">{t.text}</p>
               </div>
@@ -354,11 +331,11 @@ const SalesPage = () => {
             Não perca essa oportunidade!
           </h2>
           <p className="text-primary-foreground/80 mb-6">
-            Garanta agora com 60% de desconto
+            Garanta agora com 60% de desconto por apenas R$ 29,90
           </p>
           <button
             onClick={handleBuy}
-            className="w-full py-4 bg-background text-primary rounded-xl font-bold text-lg hover:opacity-90 transition-opacity"
+            className="w-full py-5 bg-background text-primary rounded-xl font-bold text-xl hover:opacity-90 transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
             GARANTIR MINHA VAGA
           </button>
@@ -368,14 +345,26 @@ const SalesPage = () => {
       {/* Footer */}
       <footer className="bg-foreground text-background py-8 px-4 text-center">
         <div className="flex items-center justify-center gap-2 mb-4">
-          <img 
-            src="https://res.cloudinary.com/dr0cx27xo/image/upload/v1720101060/paw-champ/logo/pawChamp.png" 
-            alt="PawChamp" 
-            className="h-6 brightness-0 invert"
-          />
+          <div className="w-6 h-6 bg-primary rounded flex items-center justify-center">
+            <span className="text-primary-foreground text-sm">🐕</span>
+          </div>
+          <span className="font-bold">Conexão Pet</span>
         </div>
-        <p className="text-background/60 text-sm">© 2025 PawChamp. Todos os direitos reservados.</p>
+        <p className="text-background/60 text-sm">© 2025 Conexão Pet. Todos os direitos reservados.</p>
       </footer>
+
+      {/* Fixed Bottom CTA for Mobile */}
+      <div className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border p-4 md:hidden z-50">
+        <button
+          onClick={handleBuy}
+          className="w-full py-4 bg-primary text-primary-foreground rounded-xl font-bold text-lg hover:opacity-90 transition-opacity"
+        >
+          QUERO MEU PLANO - R$ 29,90
+        </button>
+      </div>
+
+      {/* Spacer for fixed bottom CTA on mobile */}
+      <div className="h-20 md:hidden" />
     </div>
   );
 };

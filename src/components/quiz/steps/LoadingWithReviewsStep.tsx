@@ -38,15 +38,15 @@ const reviews = [
     rating: 5,
   },
   {
-    title: 'A estrutura é perfeita',
-    author: 'Lynette',
-    text: 'A maneira como este curso foi estruturado permite um aprendizado muito mais eficaz. Já fiz um treinador privado e este programa é mais eficaz do que estava fazendo.',
+    title: 'A estrutura do adestramento é brilhante',
+    author: 'Claire_Ugalde',
+    text: 'A maneira como o adestramento é detalhado é excelente. Já fiz um treinamento individual na minha casa e achei menos eficaz do que este curso e o recomendo muito.',
     rating: 5,
   },
   {
-    title: 'Resultados incríveis!',
-    author: 'Maria Santos',
-    text: 'Meu cachorro melhorou muito em apenas 2 semanas. Recomendo demais para todos os tutores de cães!',
+    title: 'Excelente curso de adestramento',
+    author: 'Diego Fernandez Jr',
+    text: 'Curso de adestramento excelente, muito detalhado e fácil de entender. O que eu gosto neste curso é que eles enfatizam que o adestramento de um cão exige paciência e compreensão do processo.',
     rating: 5,
   },
 ];
@@ -87,7 +87,7 @@ export const LoadingWithReviewsStep = ({
     }
   }, [progress, currentModalIndex, answeredModals]);
 
-  // Rotate reviews
+  // Rotate reviews with fade animation
   useEffect(() => {
     const reviewInterval = setInterval(() => {
       setCurrentReview((prev) => (prev + 1) % reviews.length);
@@ -126,7 +126,7 @@ export const LoadingWithReviewsStep = ({
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
   return (
-    <div className="quiz-content fade-in relative">
+    <div className="quiz-content fade-in relative min-h-screen">
       {/* Circular Progress */}
       <div className="relative w-32 h-32 mb-6">
         <svg className="w-full h-full transform -rotate-90">
@@ -165,21 +165,19 @@ export const LoadingWithReviewsStep = ({
         <h2 className="text-2xl font-bold">
           Mais de <span className="text-primary">500.000 tutores de cães</span>
         </h2>
-        <p className="text-muted-foreground">escolheram a PawChamp</p>
+        <p className="text-muted-foreground">escolheram a Conexão Pet</p>
       </div>
 
-      {/* Review Card */}
-      <div className="w-full bg-card border border-border rounded-xl p-4 transition-all duration-500">
-        <div className="flex gap-0.5 mb-2">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="w-5 h-5 bg-green-500 flex items-center justify-center">
-              <Star className="w-3 h-3 text-white fill-white" />
-            </div>
-          ))}
-        </div>
+      {/* Review Card with animation */}
+      <div className="w-full bg-card border border-border rounded-xl p-4 animate-fade-in" key={currentReview}>
         <div className="flex items-center justify-between mb-2">
           <h4 className="font-semibold text-foreground text-sm">{reviews[currentReview].title}</h4>
           <span className="text-muted-foreground text-sm">{reviews[currentReview].author}</span>
+        </div>
+        <div className="flex gap-0.5 mb-2">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star key={i} className="w-4 h-4 text-orange-400 fill-orange-400" />
+          ))}
         </div>
         <p className="text-sm text-foreground">{reviews[currentReview].text}</p>
       </div>

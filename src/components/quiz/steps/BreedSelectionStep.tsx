@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { dogBreeds } from '@/data/quizData';
-import { QuizButton } from '../QuizButton';
 import { cn } from '@/lib/utils';
 import {
   Select,
@@ -18,14 +17,14 @@ interface BreedSelectionStepProps {
 const popularBreeds = [
   'Sem raça definida',
   'Labrador',
-  'American Pit Bull Terrier',
+  'Pit Bull',
   'Pastor Alemão',
   'Cocker Spaniel',
-  'Bulldog Francês',
+  'Buldogue Francês',
   'Chihuahua',
   'Cockapoo',
   'Border Collie',
-  'Staffordshire Bull Terrier',
+  'Poodle',
 ];
 
 const getAgeLabel = (age: string) => {
@@ -48,7 +47,7 @@ export const BreedSelectionStep = ({ onSelect, dogAge }: BreedSelectionStepProps
   };
 
   return (
-    <div className="quiz-content fade-in">
+    <div className="quiz-content fade-in pb-24">
       <h1 className="text-2xl font-bold text-center text-foreground mb-2">
         Selecione a raça do seu {getAgeLabel(dogAge)}
       </h1>
