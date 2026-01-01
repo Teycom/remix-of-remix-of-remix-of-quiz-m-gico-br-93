@@ -211,3 +211,34 @@
 .animate-pulse-scale {
   animation: pulse-scale 2s ease-in-out infinite;
 }
+
+/* Confetti animations */
+@keyframes confetti-left {
+  0% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(200px) translateY(400px) rotate(720deg);
+  }
+}
+
+@keyframes confetti-right {
+  0% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-200px) translateY(400px) rotate(-720deg);
+  }
+}
+
+.animate-confetti-left {
+  animation: confetti-left 2s ease-out forwards;
+}
+
+.animate-confetti-right {
+  animation: confetti-right 2s ease-out forwards;
+}
