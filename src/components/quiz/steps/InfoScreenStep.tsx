@@ -14,7 +14,7 @@ export const InfoScreenStep = ({ stepId, title, subtitle, buttonText, image, onC
   // Social proof screen with quote
   if (stepId === 'dogs-owners') {
     return (
-      <div className="quiz-content fade-in pb-24">
+      <div className="quiz-content fade-in">
         <h1 className="text-2xl font-bold text-center text-primary mb-2">
           Mais de 500.000 tutores de cães
         </h1>
@@ -42,17 +42,14 @@ export const InfoScreenStep = ({ stepId, title, subtitle, buttonText, image, onC
           <img src={images.academicShield} alt="Academic" className="w-12 h-12" />
           <p className="text-sm text-foreground">
             As últimas descobertas sobre o adestramento canino foram apresentadas nas{' '}
-            <strong>Universidades USP, UNICAMP e UNESP</strong>
+            <strong>Universidades de Oxford, Harvard e Cambridge</strong>
           </p>
         </div>
 
-        {/* Fixed Button */}
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t border-border z-50">
-          <div className="max-w-md mx-auto">
-            <QuizButton onClick={onContinue}>
-              Continuar
-            </QuizButton>
-          </div>
+        <div className="w-full mt-auto">
+          <QuizButton onClick={onContinue}>
+            Continuar
+          </QuizButton>
         </div>
       </div>
     );
@@ -61,7 +58,7 @@ export const InfoScreenStep = ({ stepId, title, subtitle, buttonText, image, onC
   // Training hero screen
   if (stepId === 'training-hero') {
     return (
-      <div className="quiz-content fade-in pb-24">
+      <div className="quiz-content fade-in">
         <h1 className="text-xl font-bold text-center mb-2">
           <span className="text-primary">Foque em ensinar ao seu cão comandos essenciais</span>
           {' '}
@@ -79,13 +76,10 @@ export const InfoScreenStep = ({ stepId, title, subtitle, buttonText, image, onC
           <strong>adaptar o plano ao seu objetivo</strong>.
         </p>
 
-        {/* Fixed Button */}
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t border-border z-50">
-          <div className="max-w-md mx-auto">
-            <QuizButton onClick={onContinue}>
-              Continuar
-            </QuizButton>
-          </div>
+        <div className="w-full mt-auto">
+          <QuizButton onClick={onContinue}>
+            Continuar
+          </QuizButton>
         </div>
       </div>
     );
@@ -94,7 +88,7 @@ export const InfoScreenStep = ({ stepId, title, subtitle, buttonText, image, onC
   // Not alone screen with quote
   if (stepId === 'not-alone') {
     return (
-      <div className="quiz-content fade-in pb-24">
+      <div className="quiz-content fade-in">
         <h1 className="text-2xl font-bold text-center text-foreground mb-4">
           {title}
         </h1>
@@ -120,22 +114,19 @@ export const InfoScreenStep = ({ stepId, title, subtitle, buttonText, image, onC
           </p>
         </div>
 
-        {/* Fixed Button */}
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t border-border z-50">
-          <div className="max-w-md mx-auto">
-            <QuizButton onClick={onContinue}>
-              Continuar
-            </QuizButton>
-          </div>
+        <div className="w-full mt-auto">
+          <QuizButton onClick={onContinue}>
+            Continuar
+          </QuizButton>
         </div>
       </div>
     );
   }
 
-  // Evidence based screen - UNIVERSIDADES BRASILEIRAS
+  // Evidence based screen
   if (stepId === 'evidence-based') {
     return (
-      <div className="quiz-content fade-in pb-24">
+      <div className="quiz-content fade-in">
         <h1 className="text-xl font-bold text-center text-foreground mb-4">
           {title}
         </h1>
@@ -149,32 +140,29 @@ export const InfoScreenStep = ({ stepId, title, subtitle, buttonText, image, onC
             <span className="text-2xl">🎓</span>
             <div>
               <p className="text-sm text-muted-foreground">Universidade de</p>
-              <p className="font-bold text-foreground">São Paulo (USP)</p>
+              <p className="font-bold text-foreground">Cambridge</p>
             </div>
           </div>
           <div className="bg-secondary rounded-xl p-4 flex items-center gap-3">
             <span className="text-2xl">🎓</span>
             <div>
               <p className="text-sm text-muted-foreground">Universidade de</p>
-              <p className="font-bold text-foreground">Campinas (UNICAMP)</p>
+              <p className="font-bold text-foreground">Oxford</p>
             </div>
           </div>
           <div className="bg-secondary rounded-xl p-4 flex items-center gap-3">
             <span className="text-2xl">🎓</span>
             <div>
-              <p className="text-sm text-muted-foreground">Universidade Estadual</p>
-              <p className="font-bold text-foreground">Paulista (UNESP)</p>
+              <p className="text-sm text-muted-foreground">Universidade de</p>
+              <p className="font-bold text-foreground">Harvard</p>
             </div>
           </div>
         </div>
 
-        {/* Fixed Button */}
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t border-border z-50">
-          <div className="max-w-md mx-auto">
-            <QuizButton onClick={onContinue}>
-              {buttonText || 'Continuar'}
-            </QuizButton>
-          </div>
+        <div className="w-full mt-auto">
+          <QuizButton onClick={onContinue}>
+            {buttonText || 'Continuar'}
+          </QuizButton>
         </div>
       </div>
     );
@@ -182,7 +170,7 @@ export const InfoScreenStep = ({ stepId, title, subtitle, buttonText, image, onC
 
   // Generic info screen with image
   return (
-    <div className="quiz-content fade-in pb-24">
+    <div className="quiz-content fade-in">
       {title && (
         <h1 className="text-xl font-bold text-center text-primary mb-2">
           {title}
@@ -203,13 +191,10 @@ export const InfoScreenStep = ({ stepId, title, subtitle, buttonText, image, onC
         />
       )}
 
-      {/* Fixed Button */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t border-border z-50">
-        <div className="max-w-md mx-auto">
-          <QuizButton onClick={onContinue}>
-            {buttonText || 'Continuar'}
-          </QuizButton>
-        </div>
+      <div className="w-full mt-auto">
+        <QuizButton onClick={onContinue}>
+          {buttonText || 'Continuar'}
+        </QuizButton>
       </div>
     </div>
   );
