@@ -25,13 +25,13 @@ export const ProgressChartStep = ({ dogName, onContinue }: ProgressChartStepProp
   }, []);
 
   const bars = [
-    { height: 20, color: 'from-red-500 to-red-400' },
-    { height: 35, color: 'from-orange-500 to-orange-400' },
-    { height: 50, color: 'from-yellow-500 to-yellow-400' },
-    { height: 65, color: 'from-lime-500 to-lime-400' },
-    { height: 80, color: 'from-green-500 to-green-400', isMeta: true },
-    { height: 90, color: 'from-teal-500 to-teal-400' },
-    { height: 100, color: 'from-cyan-500 to-cyan-400' },
+    { heightPx: 38, color: 'from-red-500 to-red-400' },
+    { heightPx: 67, color: 'from-orange-500 to-orange-400' },
+    { heightPx: 96, color: 'from-yellow-500 to-yellow-400' },
+    { heightPx: 125, color: 'from-lime-500 to-lime-400' },
+    { heightPx: 154, color: 'from-green-500 to-green-400', isMeta: true },
+    { heightPx: 173, color: 'from-teal-500 to-teal-400' },
+    { heightPx: 192, color: 'from-cyan-500 to-cyan-400' },
   ];
 
   return (
@@ -47,24 +47,25 @@ export const ProgressChartStep = ({ dogName, onContinue }: ProgressChartStepProp
       <p className="text-primary font-bold text-lg text-center mb-6">{formattedDate}</p>
 
       {/* Bar Chart with animation */}
-      <div className="w-full flex items-end justify-center gap-2 h-48 mb-4">
+      <div className="w-full flex items-end justify-center gap-2 mb-4" style={{ height: '200px' }}>
         {bars.map((bar, index) => (
-          <div key={index} className="flex flex-col items-center">
+          <div key={index} className="flex flex-col items-center justify-end h-full">
             {bar.isMeta && (
               <div 
-                className={`bg-primary text-primary-foreground text-xs px-2 py-1 rounded mb-1 transition-opacity duration-500 ${
-                  animate ? 'opacity-100' : 'opacity-0'
-                }`}
-                style={{ transitionDelay: `${index * 100 + 400}ms` }}
+                className={`bg-primary text-primary-foreground text-xs px-2 py-1 rounded mb-1 transition-opacity duration-500`}
+                style={{ 
+                  opacity: animate ? 1 : 0,
+                  transitionDelay: `${index * 100 + 400}ms` 
+                }}
               >
                 Meta
               </div>
             )}
             <div
-              className={`w-8 rounded-t-lg bg-gradient-to-t ${bar.color} transition-all duration-700 ease-out`}
+              className={`w-8 rounded-t-lg bg-gradient-to-t ${bar.color}`}
               style={{ 
-                height: animate ? `${bar.height}%` : '0%',
-                transitionDelay: `${index * 100}ms`,
+                height: animate ? `${bar.heightPx}px` : '0px',
+                transition: `height 700ms ease-out ${index * 100}ms`,
               }}
             />
           </div>
