@@ -38,7 +38,7 @@ export const MultiChoiceStep = ({
 
   if (variant === 'images') {
     return (
-      <div className="quiz-content fade-in">
+      <div className="quiz-content fade-in pb-24">
         <h1 className="text-xl font-bold text-center text-foreground mb-2">
           {title}
         </h1>
@@ -67,10 +67,13 @@ export const MultiChoiceStep = ({
           ))}
         </div>
 
-        <div className="w-full mt-auto">
-          <QuizButton onClick={handleSubmit} disabled={selected.length === 0}>
-            {buttonText}
-          </QuizButton>
+        {/* Fixed Button */}
+        <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t border-border z-50">
+          <div className="max-w-md mx-auto">
+            <QuizButton onClick={handleSubmit} disabled={selected.length === 0}>
+              {buttonText}
+            </QuizButton>
+          </div>
         </div>
       </div>
     );
@@ -78,7 +81,7 @@ export const MultiChoiceStep = ({
 
   if (variant === 'icons') {
     return (
-      <div className="quiz-content fade-in">
+      <div className="quiz-content fade-in pb-24">
         <h1 className="text-xl font-bold text-center text-foreground mb-2">
           {title}
         </h1>
@@ -115,17 +118,20 @@ export const MultiChoiceStep = ({
           ))}
         </div>
 
-        <div className="w-full mt-auto">
-          <QuizButton onClick={handleSubmit} disabled={selected.length === 0}>
-            {buttonText}
-          </QuizButton>
+        {/* Fixed Button */}
+        <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t border-border z-50">
+          <div className="max-w-md mx-auto">
+            <QuizButton onClick={handleSubmit} disabled={selected.length === 0}>
+              {buttonText}
+            </QuizButton>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="quiz-content fade-in">
+    <div className="quiz-content fade-in pb-24">
       <h1 className="text-xl font-bold text-center text-foreground mb-2">
         {title}
       </h1>
@@ -136,7 +142,7 @@ export const MultiChoiceStep = ({
         </p>
       )}
 
-      <div className="w-full space-y-3 mb-6">
+      <div className="w-full space-y-3 mb-6 max-h-[50vh] overflow-y-auto">
         {options.map((option) => (
           <button
             key={option.id}
@@ -151,7 +157,7 @@ export const MultiChoiceStep = ({
             <span className="flex-1 text-left font-medium text-foreground">{option.label}</span>
             <div
               className={cn(
-                'w-6 h-6 rounded-full border-2 transition-all flex items-center justify-center',
+                'w-6 h-6 rounded-full border-2 transition-all flex items-center justify-center flex-shrink-0',
                 selected.includes(option.id)
                   ? 'bg-primary border-primary'
                   : 'border-border'
@@ -167,10 +173,13 @@ export const MultiChoiceStep = ({
         ))}
       </div>
 
-      <div className="w-full mt-auto">
-        <QuizButton onClick={handleSubmit} disabled={selected.length === 0}>
-          {buttonText}
-        </QuizButton>
+      {/* Fixed Button */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/95 backdrop-blur-sm border-t border-border z-50">
+        <div className="max-w-md mx-auto">
+          <QuizButton onClick={handleSubmit} disabled={selected.length === 0}>
+            {buttonText}
+          </QuizButton>
+        </div>
       </div>
     </div>
   );

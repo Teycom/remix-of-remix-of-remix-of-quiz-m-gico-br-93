@@ -10,12 +10,19 @@ const SalesPage = () => {
   
   const [timeLeft, setTimeLeft] = useState(10 * 60);
   const [showFaq, setShowFaq] = useState<number | null>(null);
+  const [showConfetti, setShowConfetti] = useState(true);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
     }, 1000);
     return () => clearInterval(timer);
+  }, []);
+
+  // Hide confetti after animation
+  useEffect(() => {
+    const timer = setTimeout(() => setShowConfetti(false), 3000);
+    return () => clearTimeout(timer);
   }, []);
 
   const formatTime = (seconds: number) => {
@@ -52,26 +59,26 @@ const SalesPage = () => {
   const testimonials = [
     {
       title: 'Excelentes técnicas de reforço positivo',
-      author: 'Dawg Daddy',
+      author: 'Mariana Silva',
       text: 'Este é um ótimo programa de treinamento que começa desde a base, o que é fundamental. Ele avança de forma gradual com técnicas de reforço positivo que realmente funcionam. Eu vi ótimos resultados com meus 2 cães.',
     },
     {
       title: 'A estrutura do adestramento é brilhante',
-      author: 'Claire_Ugalde',
+      author: 'Carlos Oliveira',
       text: 'A maneira como o adestramento é detalhado é excelente. Já fiz um treinamento individual na minha casa e achei menos eficaz do que este curso e o recomendo muito.',
     },
     {
       title: 'Excelente curso de adestramento',
-      author: 'Diego Fernandez Jr',
+      author: 'Ana Paula Santos',
       text: 'Curso de adestramento excelente, muito detalhado e fácil de entender. O que eu gosto neste curso é que eles enfatizam que o adestramento de um cão exige paciência e compreensão do processo.',
     },
   ];
 
   const recentUsers = [
-    { name: 'dimin***', insights: 8, time: 5 },
-    { name: 'jesssic***', insights: 6, time: 12 },
-    { name: 'ali.k***', insights: 12, time: 16 },
-    { name: 'a.kara***', insights: 24, time: 15 },
+    { name: 'mari***', tecnicas: 8, time: 5 },
+    { name: 'carlos***', tecnicas: 6, time: 12 },
+    { name: 'ana.p***', tecnicas: 12, time: 16 },
+    { name: 'joao.m***', tecnicas: 24, time: 15 },
   ];
 
   const handleBuy = () => {
@@ -79,7 +86,45 @@ const SalesPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* Confetti Animation */}
+      {showConfetti && (
+        <div className="fixed inset-0 pointer-events-none z-[100]">
+          {/* Left side confetti */}
+          {Array.from({ length: 20 }).map((_, i) => (
+            <div
+              key={`left-${i}`}
+              className="absolute animate-confetti-left"
+              style={{
+                left: '0%',
+                top: `${Math.random() * 50}%`,
+                animationDelay: `${Math.random() * 0.5}s`,
+                backgroundColor: ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff', '#5f27cd'][i % 6],
+                width: '10px',
+                height: '10px',
+                borderRadius: Math.random() > 0.5 ? '50%' : '0',
+              }}
+            />
+          ))}
+          {/* Right side confetti */}
+          {Array.from({ length: 20 }).map((_, i) => (
+            <div
+              key={`right-${i}`}
+              className="absolute animate-confetti-right"
+              style={{
+                right: '0%',
+                top: `${Math.random() * 50}%`,
+                animationDelay: `${Math.random() * 0.5}s`,
+                backgroundColor: ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#54a0ff', '#5f27cd'][i % 6],
+                width: '10px',
+                height: '10px',
+                borderRadius: Math.random() > 0.5 ? '50%' : '0',
+              }}
+            />
+          ))}
+        </div>
+      )}
+
       {/* Fixed Header with Timer */}
       <header className="fixed top-0 left-0 right-0 bg-background/95 backdrop-blur-sm z-50 border-b border-border">
         <div className="max-w-md mx-auto flex items-center justify-between px-4 py-3">
@@ -87,19 +132,19 @@ const SalesPage = () => {
             <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
               <span className="text-primary-foreground text-lg">🐕</span>
             </div>
-            <span className="font-bold text-foreground">Conexão Pet</span>
+            <span className="font-bold text-foreground hidden sm:block">Conexão Pet</span>
           </div>
           
           <div className="text-center">
-            <p className="text-2xl font-bold text-foreground">{formatTime(timeLeft)}</p>
+            <p className="text-xl sm:text-2xl font-bold text-foreground">{formatTime(timeLeft)}</p>
             <p className="text-xs text-muted-foreground">Última chance</p>
           </div>
           
           <button
             onClick={handleBuy}
-            className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-semibold text-sm hover:opacity-90 transition-opacity"
+            className="bg-primary text-primary-foreground px-3 sm:px-4 py-2 rounded-lg font-semibold text-xs sm:text-sm hover:opacity-90 transition-opacity"
           >
-            OBTER O MEU PLANO
+            OBTER PLANO
           </button>
         </div>
       </header>
@@ -114,19 +159,19 @@ const SalesPage = () => {
             O Desafio de obediência personalizado de {dogName} está pronto!
           </h1>
           
-          <div className="flex justify-center gap-8 mb-6">
+          <div className="flex justify-center gap-4 sm:gap-8 mb-6">
             <div className="flex items-center gap-2">
-              <Target className="w-6 h-6 text-primary" />
+              <Target className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
               <div className="text-left">
                 <p className="text-xs text-muted-foreground">Meta</p>
-                <p className="font-semibold text-foreground text-sm">Melhorar a obediência</p>
+                <p className="font-semibold text-foreground text-xs sm:text-sm">Melhorar a obediência</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <AlertTriangle className="w-6 h-6 text-destructive" />
+              <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-destructive flex-shrink-0" />
               <div className="text-left">
-                <p className="text-xs text-muted-foreground">Problemas comportamentais</p>
-                <p className="font-semibold text-foreground text-sm">Agressão</p>
+                <p className="text-xs text-muted-foreground">Problemas</p>
+                <p className="font-semibold text-foreground text-xs sm:text-sm">Agressão</p>
               </div>
             </div>
           </div>
@@ -155,38 +200,38 @@ const SalesPage = () => {
             <img 
               src="https://res.cloudinary.com/dr0cx27xo/image/upload/v1689601188/dog-training/img/girl-problem.png" 
               alt="Antes" 
-              className="w-40 h-auto object-contain"
+              className="w-36 sm:w-40 h-auto object-contain"
             />
             <img 
               src="https://res.cloudinary.com/dr0cx27xo/image/upload/v1689582634/dog-training/img/girl-resolved.png" 
               alt="Depois" 
-              className="w-40 h-auto object-contain"
+              className="w-36 sm:w-40 h-auto object-contain"
             />
           </div>
 
           {/* Stats Comparison */}
           <div className="grid grid-cols-2 gap-4 bg-background rounded-2xl p-4">
             <div>
-              <h4 className="font-semibold text-sm text-foreground">Obediência de {dogName}</h4>
-              <p className="text-muted-foreground text-sm">Baixo</p>
+              <h4 className="font-semibold text-xs sm:text-sm text-foreground">Obediência de {dogName}</h4>
+              <p className="text-muted-foreground text-xs sm:text-sm">Baixo</p>
               <div className="flex gap-1 mt-2">
-                <div className="h-1.5 w-8 rounded bg-primary" />
-                <div className="h-1.5 w-8 rounded bg-progress-bg" />
-                <div className="h-1.5 w-8 rounded bg-progress-bg" />
+                <div className="h-1.5 w-6 sm:w-8 rounded bg-primary" />
+                <div className="h-1.5 w-6 sm:w-8 rounded bg-progress-bg" />
+                <div className="h-1.5 w-6 sm:w-8 rounded bg-progress-bg" />
               </div>
-              <h4 className="font-semibold text-sm text-foreground mt-4">Nível de adestramento</h4>
-              <p className="text-muted-foreground text-sm">Intermediário</p>
+              <h4 className="font-semibold text-xs sm:text-sm text-foreground mt-4">Nível de adestramento</h4>
+              <p className="text-muted-foreground text-xs sm:text-sm">Intermediário</p>
             </div>
             <div>
-              <h4 className="font-semibold text-sm text-foreground">Obediência de {dogName}</h4>
-              <p className="text-muted-foreground text-sm">Elevado</p>
+              <h4 className="font-semibold text-xs sm:text-sm text-foreground">Obediência de {dogName}</h4>
+              <p className="text-muted-foreground text-xs sm:text-sm">Elevado</p>
               <div className="flex gap-1 mt-2">
-                <div className="h-1.5 w-8 rounded bg-cyan-400" />
-                <div className="h-1.5 w-8 rounded bg-cyan-400" />
-                <div className="h-1.5 w-8 rounded bg-cyan-400" />
+                <div className="h-1.5 w-6 sm:w-8 rounded bg-cyan-400" />
+                <div className="h-1.5 w-6 sm:w-8 rounded bg-cyan-400" />
+                <div className="h-1.5 w-6 sm:w-8 rounded bg-cyan-400" />
               </div>
-              <h4 className="font-semibold text-sm text-foreground mt-4">Nível de adestramento</h4>
-              <p className="text-muted-foreground text-sm">Avançado</p>
+              <h4 className="font-semibold text-xs sm:text-sm text-foreground mt-4">Nível de adestramento</h4>
+              <p className="text-muted-foreground text-xs sm:text-sm">Avançado</p>
             </div>
           </div>
         </div>
@@ -195,7 +240,7 @@ const SalesPage = () => {
       {/* Discount Banner */}
       <section className="px-4 py-8">
         <div className="max-w-md mx-auto">
-          <div className="bg-primary text-primary-foreground text-center py-3 rounded-t-xl font-bold">
+          <div className="bg-primary text-primary-foreground text-center py-3 rounded-t-xl font-bold text-sm sm:text-base">
             60% DESCONTO RESERVADO POR {formatTime(timeLeft)}
           </div>
           <div className="rounded-b-xl overflow-hidden">
@@ -212,14 +257,14 @@ const SalesPage = () => {
       <section className="py-4 px-4">
         <div className="max-w-md mx-auto">
           <p className="text-center text-muted-foreground text-sm mb-4">
-            Mais de 1812 pessoas aprenderam insights de obediência canina hoje
+            Mais de 1812 pessoas aprenderam <strong>8 técnicas</strong> de obediência canina hoje
           </p>
           <div className="space-y-2">
             {recentUsers.map((user, i) => (
-              <div key={i} className="flex items-center justify-between bg-secondary rounded-lg p-3 text-sm">
+              <div key={i} className="flex items-center justify-between bg-secondary rounded-lg p-3 text-xs sm:text-sm">
                 <span className="text-foreground">{user.name}</span>
-                <span className="text-muted-foreground">{user.insights} insights</span>
-                <span className="text-muted-foreground">{user.time} minutos</span>
+                <span className="text-muted-foreground">{user.tecnicas} técnicas</span>
+                <span className="text-muted-foreground">{user.time} min</span>
               </div>
             ))}
           </div>
@@ -233,22 +278,22 @@ const SalesPage = () => {
           <p className="text-green-600 text-sm mb-4">O seu código promocional foi aplicado!</p>
           
           <div className="mb-6">
-            <span className="bg-foreground text-background px-3 py-1 rounded text-sm font-mono">
-              {dogName.toLowerCase().replace(' ', '')}_dezde25
+            <span className="bg-foreground text-background px-3 py-1.5 rounded text-sm font-mono inline-block">
+              {dogName.toLowerCase().replace(/\s+/g, '')}_dezde25
             </span>
           </div>
 
-          <div className="bg-background rounded-2xl p-6 mb-6 border-2 border-primary">
+          <div className="bg-background rounded-2xl p-6 mb-6 border-2 border-primary shadow-lg">
             <p className="text-muted-foreground line-through text-lg mb-1">De R$ 97,00</p>
-            <p className="text-4xl font-bold text-primary mb-1">
-              R$ 29<span className="text-2xl">,90</span>
+            <p className="text-4xl sm:text-5xl font-bold text-primary mb-1">
+              R$ 29<span className="text-2xl sm:text-3xl">,90</span>
             </p>
             <p className="text-muted-foreground text-sm">Pagamento único</p>
           </div>
 
           <button
             onClick={handleBuy}
-            className="w-full py-5 bg-primary text-primary-foreground rounded-xl font-bold text-xl hover:opacity-90 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg"
+            className="w-full py-5 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-2xl font-bold text-xl hover:opacity-90 transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xl animate-pulse"
           >
             QUERO MEU PLANO AGORA
           </button>
@@ -267,7 +312,7 @@ const SalesPage = () => {
             {features.map((feature, i) => (
               <div key={i} className="flex items-center gap-3">
                 <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-                <span className="text-foreground">{feature}</span>
+                <span className="text-foreground text-sm sm:text-base">{feature}</span>
               </div>
             ))}
           </div>
@@ -285,7 +330,7 @@ const SalesPage = () => {
                   onClick={() => setShowFaq(showFaq === i ? null : i)}
                   className="w-full p-4 flex items-center justify-between text-left"
                 >
-                  <span className="font-medium text-foreground pr-4">{faq.question}</span>
+                  <span className="font-medium text-foreground pr-4 text-sm sm:text-base">{faq.question}</span>
                   {showFaq === i ? (
                     <ChevronUp className="w-5 h-5 flex-shrink-0" />
                   ) : (
@@ -293,7 +338,7 @@ const SalesPage = () => {
                   )}
                 </button>
                 {showFaq === i && (
-                  <div className="px-4 pb-4 text-muted-foreground">{faq.answer}</div>
+                  <div className="px-4 pb-4 text-muted-foreground text-sm">{faq.answer}</div>
                 )}
               </div>
             ))}
@@ -309,15 +354,17 @@ const SalesPage = () => {
             {testimonials.map((t, i) => (
               <div key={i} className="bg-card border border-border p-4 rounded-xl">
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-semibold text-foreground">{t.title}</h4>
-                  <span className="text-muted-foreground text-sm">{t.author}</span>
+                  <h4 className="font-semibold text-foreground text-sm">{t.title}</h4>
                 </div>
-                <div className="flex gap-0.5 mb-2">
-                  {Array.from({ length: 5 }).map((_, j) => (
-                    <Star key={j} className="w-4 h-4 text-orange-400 fill-orange-400" />
-                  ))}
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="flex gap-0.5">
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <Star key={j} className="w-4 h-4 text-orange-400 fill-orange-400" />
+                    ))}
+                  </div>
+                  <span className="text-muted-foreground text-xs">{t.author}</span>
                 </div>
-                <p className="text-foreground text-sm">{t.text}</p>
+                <p className="text-foreground text-xs sm:text-sm">{t.text}</p>
               </div>
             ))}
           </div>
@@ -343,7 +390,7 @@ const SalesPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-foreground text-background py-8 px-4 text-center">
+      <footer className="bg-foreground text-background py-8 px-4 text-center pb-28 md:pb-8">
         <div className="flex items-center justify-center gap-2 mb-4">
           <div className="w-6 h-6 bg-primary rounded flex items-center justify-center">
             <span className="text-primary-foreground text-sm">🐕</span>
@@ -357,14 +404,11 @@ const SalesPage = () => {
       <div className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur-sm border-t border-border p-4 md:hidden z-50">
         <button
           onClick={handleBuy}
-          className="w-full py-4 bg-primary text-primary-foreground rounded-xl font-bold text-lg hover:opacity-90 transition-opacity"
+          className="w-full py-4 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-xl font-bold text-lg hover:opacity-90 transition-opacity shadow-lg"
         >
           QUERO MEU PLANO - R$ 29,90
         </button>
       </div>
-
-      {/* Spacer for fixed bottom CTA on mobile */}
-      <div className="h-20 md:hidden" />
     </div>
   );
 };
